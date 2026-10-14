@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Conta</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Climate+Crisis:YEAR@1979&family=Comfortaa:wght@300..700&family=Fira+Code:wght@300..700&family=Russo+One&family=Syne:wght@400..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="telacriar.css">
+</head>
+<body>
+    <main class="Criar">
+    <h2>Criar Conta</h2>
+    <p class="subtitulo1">Segurança em primeiro lugar!</p>
+
+    <form action="criar.php" method="POST">
+        <div class="campo1">
+            <label for="usuarios"> Criar Nome de usuario:</label>
+            <input type="text" name="usuario" id="usuarios" placeholder="Criar seu nome de Usuario: " required>
+             <br>
+            <label for="senha"> Criar Senha:</label>
+            <input type="password" name="senha" id="senha" placeholder="Crie uma senha:" required> 
+        </div>
+        <button type="submit" class="Criar1">Criar</button>
+    </form>
+    <p class="final1">
+        Ja tem uma conta? <a href="teladelogin.html">Logar Conta</a> 
+    </p>
+    </main>
+</body>
+</html>

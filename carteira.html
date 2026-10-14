@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Negociar BTC/BRL - VoidCrypto</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        neon: '#00ff00',
+                        darkbg: '#03140e',
+                        cardbg: 'rgba(6, 78, 59, 0.4)'
+                    },
+                    fontFamily: {
+                        syne: ['Syne', 'sans-serif'],
+                        mono: ['Roboto Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+
+    <!-- Ícones Lucide -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-darkbg text-white font-syne min-h-screen p-4 md:p-6 antialiased selection:bg-neon selection:text-black">
+
+    <!-- HEADER DE NAVEGAÇÃO -->
+    <header class="max-w-7xl mx-auto flex justify-between items-center pb-4 mb-6 border-b border-emerald-900/60">
+        <div class="flex items-center gap-6">
+            <h1 class="text-xl font-extrabold tracking-wide">
+                Void<span class="text-neon">Crypto</span>
+            </h1>
+            <nav class="hidden md:flex gap-4 text-xs font-bold text-gray-400">
+                <a href="#" class="text-neon border-b-2 border-neon pb-1">Mercado / Trade</a>
+                <a href="carteira_tailwind.html" class="hover:text-white transition-colors pb-1">Minha Carteira</a>
+            </nav>
+        </div>
+
+        <div class="flex items-center gap-4 text-xs font-mono">
+            <div class="text-right">
+                <span class="text-gray-400 block text-[10px] uppercase">Saldo Disponível</span>
+                <span class="text-white font-bold" id="saldo-disponivel-brl">R$ 1.500,00 BRL</span>
+            </div>
+            <a href="carteira_tailwind.html" class="bg-emerald-900/50 border border-emerald-500/30 hover:border-neon text-emerald-300 px-3 py-2 rounded-xl transition-all">
+                Ir para Carteira →
+            </a>
+        </div>
+    </header>
+
+    <!-- CABEÇALHO DO ATIVO (BITCOIN) -->
+    <section class="max-w-7xl mx-auto bg-cardbg border border-emerald-500/30 rounded-2xl p-4 mb-6 flex flex-wrap justify-between items-center gap-4">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-amber-500/20 border border-amber-500 flex items-center justify-center text-amber-500 font-bold text-lg">
+                ₿
+            </div>
+            <div>
+                <h2 class="font-extrabold text-lg leading-tight">Bitcoin <span class="text-xs font-mono text-gray-400">BTC/BRL</span></h2>
+                <span class="text-xs text-emerald-400 font-mono">Cotação oficial em tempo real</span>
+            </div>
+        </div>
+
+        <div class="flex gap-6 font-mono text-xs">
+            <div>
+                <span class="text-gray-400 block text-[10px]">Preço Atual</span>
+                <span class="text-neon font-bold text-base" id="preco-btc-atual">R$ 412.000,00</span>
+            </div>
+            <div>
+                <span class="text-gray-400 block text-[10px]">Variação 24h</span>
+                <span class="text-neon font-bold text-sm">+3.42%</span>
+            </div>
+            <div class="hidden sm:block">
+                <span class="text-gray-400 block text-[10px]">Mínima 24h</span>
+                <span class="text-gray-300 font-bold">R$ 401.500,00</span>
+            </div>
+            <div class="hidden sm:block">
+                <span class="text-gray-400 block text-[10px]">Máxima 24h</span>
+                <span class="text-gray-300 font-bold">R$ 415.800,00</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTEÚDO PRINCIPAL (GRID) -->
+    <main class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+        <!-- ÁREA ESQUERDA: GRÁFICO (SIMULADO) E INFORMAÇÕES (7 Colunas) -->
+        <div class="lg:col-span-7 flex flex-col gap-6">
+            <!-- Simulação de Gráfico de Preço -->
+            <div class="bg-cardbg border border-emerald-500/30 rounded-2xl p-5 shadow-xl min-h-[320px] flex flex-col justify-between">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-xs font-bold text-emerald-300 flex items-center gap-2">
+                        <i data-lucide="line-chart" class="w-4 h-4 text-neon"></i>
+                        Gráficos de Desempenho
+                    </span>
+                    <div class="flex gap-2 text-[10px] font-mono">
+                        <button class="bg-neon text-black px-2 py-1 rounded font-bold">24H</button>
+                        <button class="bg-black/40 text-gray-400 px-2 py-1 rounded hover:text-white">7D</button>
+                        <button class="bg-black/40 text-gray-400 px-2 py-1 rounded hover:text-white">1M</button>
+                    </div>
+                </div>
+
+                <!-- Gráfico Ilustrativo em SVG (Candles/Linha) -->
+                <div class="w-full h-48 flex items-end gap-2 pt-6 pb-2 px-2 bg-black/40 rounded-xl border border-emerald-900/40 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-t from-neon/10 to-transparent pointer-events-none"></div>
+                    
+                    <!-- Barras Simulando Gráfico -->
+                    <div class="flex-1 bg-emerald-500/30 hover:bg-neon h-[40%] rounded-t transition-all"></div>
+                    <div class="flex-1 bg-emerald-500/30 hover:bg-neon h-[55%] rounded-t transition-all"></div>
+                    <div class="flex-1 bg-rose-500/30 hover:bg-rose-400 h-[35%] rounded-t transition-all"></div>
+                    <div class="flex-1 bg-emerald-500/30 hover:bg-neon h-[60%] rounded-t transition-all"></div>
+                    <div class="flex-1 bg-emerald-500/30 hover:bg-neon h-[75%] rounded-t transition-all"></div>
+                    <div class="flex-1 bg-rose-500/30 hover:bg-rose-400 h-[50%] rounded-t transition-all"></div>
+                    <div class="flex-1 bg-emerald-500/30 hover:bg-neon h-[80%] rounded-t transition-all"></div>
+                    <div class="flex-1 bg-neon h-[95%] rounded-t shadow-lg shadow-neon/30"></div>
+                </div>
+
+                <p class="text-[11px] text-gray-400 mt-3 text-center">
+                    💡 Dica: No projeto final você pode integrar a API do <strong class="text-emerald-300">TradingView</strong> ou <strong class="text-emerald-300">Chart.js</strong> neste container.
+                </p>
+            </div>
+
+            <!-- LIVRO DE OFERTAS (ORDER BOOK SIMULADO) -->
+            <div class="bg-cardbg border border-emerald-500/30 rounded-2xl p-5 shadow-xl font-mono text-xs">
+                <h3 class="text-emerald-300 font-syne font-bold mb-3 flex items-center gap-2">
+                    <i data-lucide="list-ordered" class="w-4 h-4 text-neon"></i>
+                    Livro de Ofertas (Order Book)
+                </h3>
+                <div class="grid grid-cols-2 gap-4">
+                    <!-- Vendas (Vermelho) -->
+                    <div>
+                        <span class="text-[10px] text-gray-400 block mb-2 uppercase">Ordens de Venda</span>
+                        <div class="space-y-1.5 text-rose-400">
+                            <div class="flex justify-between bg-rose-950/30 p-1 rounded"><span>412.500 BRL</span> <span>0.0150 BTC</span></div>
+                            <div class="flex justify-between bg-rose-950/30 p-1 rounded"><span>412.300 BRL</span> <span>0.0080 BTC</span></div>
+                            <div class="flex justify-between bg-rose-950/30 p-1 rounded"><span>412.100 BRL</span> <span>0.0420 BTC</span></div>
+                        </div>
+                    </div>
+                    <!-- Compras (Verde) -->
+                    <div>
+                        <span class="text-[10px] text-gray-400 block mb-2 uppercase">Ordens de Compra</span>
+                        <div class="space-y-1.5 text-neon">
+                            <div class="flex justify-between bg-emerald-950/30 p-1 rounded"><span>411.900 BRL</span> <span>0.0210 BTC</span></div>
+                            <div class="flex justify-between bg-emerald-950/30 p-1 rounded"><span>411.800 BRL</span> <span>0.1000 BTC</span></div>
+                            <div class="flex justify-between bg-emerald-950/30 p-1 rounded"><span>411.500 BRL</span> <span>0.0050 BTC</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ÁREA DIREITA: PAINEL DE COMPRA E VENDA (5 Colunas) -->
+        <div class="lg:col-span-5">
+            <div class="bg-cardbg border border-emerald-500/30 hover:border-neon/60 transition-all rounded-2xl p-6 shadow-xl sticky top-6">
+                
+                <!-- BOTÕES DE MODO (COMPRAR / VENDER) -->
+                <div class="flex bg-black/50 p-1 rounded-xl border border-emerald-900/50 mb-6">
+                    <button onclick="mudarModoTrade('comprar')" id="btn-modo-comprar" class="flex-1 py-2.5 text-xs font-extrabold rounded-lg transition-all text-black bg-neon shadow-md">
+                        COMPRAR BTC
+                    </button>
+                    <button onclick="mudarModoTrade('vender')" id="btn-modo-vender" class="flex-1 py-2.5 text-xs font-extrabold rounded-lg transition-all text-gray-400 hover:text-white">
+                        VENDER BTC
+                    </button>
+                </div>
+
+                <!-- FORMULÁRIO DE COMPRA / VENDA -->
+                <form id="form-trade" onsubmit="executarOrdem(event)" class="space-y-4">
+                    <div>
+                        <div class="flex justify-between text-xs mb-1">
+                            <label class="text-emerald-200/80">Valor a gastar (R$):</label>
+                            <span class="text-gray-400 font-mono text-[11px]">Máx: R$ 1.500,00</span>
+                        </div>
+                        <div class="relative">
+                            <input type="number" id="input-brl" oninput="calcularQtdeBtc(this.value)" placeholder="100,00" required step="0.01" class="w-full bg-black/70 border border-emerald-500/30 focus:border-neon focus:ring-1 focus:ring-neon rounded-xl p-3 font-mono text-sm text-white outline-none pl-10">
+                            <span class="absolute left-3 top-3 text-emerald-500 font-bold text-sm">R$</span>
+                        </div>
+                    </div>
+
+                    <!-- ATALHOS DE PORCENTAGEM -->
+                    <div class="grid grid-cols-4 gap-2 font-mono text-xs">
+                        <button type="button" onclick="preencherPorcentagem(0.25)" class="bg-black/40 border border-emerald-800/50 hover:border-neon text-emerald-300 py-1.5 rounded-lg transition-all">25%</button>
+                        <button type="button" onclick="preencherPorcentagem(0.50)" class="bg-black/40 border border-emerald-800/50 hover:border-neon text-emerald-300 py-1.5 rounded-lg transition-all">50%</button>
+                        <button type="button" onclick="preencherPorcentagem(0.75)" class="bg-black/40 border border-emerald-800/50 hover:border-neon text-emerald-300 py-1.5 rounded-lg transition-all">75%</button>
+                        <button type="button" onclick="preencherPorcentagem(1.00)" class="bg-black/40 border border-emerald-800/50 hover:border-neon text-emerald-300 py-1.5 rounded-lg transition-all">100%</button>
+                    </div>
+
+                    <!-- RESUMO DA OPERAÇÃO -->
+                    <div class="bg-black/50 p-4 rounded-xl border border-emerald-900/60 space-y-2 font-mono text-xs">
+                        <div class="flex justify-between text-gray-400">
+                            <span>Preço estimado:</span>
+                            <span class="text-white">R$ 412.000,00</span>
+                        </div>
+                        <div class="flex justify-between text-gray-400">
+                            <span>Taxa da Corretora (0.1%):</span>
+                            <span class="text-white" id="taxa-estimada">R$ 0,00</span>
+                        </div>
+                        <hr class="border-emerald-900/40">
+                        <div class="flex justify-between text-sm font-bold">
+                            <span class="text-emerald-300">Você receberá:</span>
+                            <span class="text-neon" id="resultado-btc">0.00000000 BTC</span>
+                        </div>
+                    </div>
+
+                    <!-- BOTÃO SUBMIT -->
+                    <button type="submit" id="btn-submit-trade" class="w-full bg-neon hover:bg-emerald-400 text-black font-extrabold py-3.5 rounded-xl transition-all shadow-lg shadow-neon/10 active:scale-[0.99] flex justify-center items-center gap-2 text-sm uppercase tracking-wider">
+                        <i data-lucide="shopping-cart" class="w-4 h-4"></i>
+                        Confirmar Compra de BTC
+                    </button>
+                </form>
+
+            </div>
+        </div>
+
+    </main>
+
+    <!-- LOGIC JS -->
+    <script>
+        lucide.createIcons();
+
+        const PRECO_BTC = 412000.00;
+        const SALDO_DISPONIVEL_BRL = 1500.00;
+        let modoAtual = 'comprar';
+
+        // 1. Calcula quanto BTC o usuário vai receber ao digitar em R$
+        function calcularQtdeBtc(valorBrl) {
+            const valor = parseFloat(valorBrl) || 0;
+            const taxa = valor * 0.001; // 0.1% de taxa
+            const valorLiquido = valor - taxa;
+            const btcRecebido = valorLiquido > 0 ? (valorLiquido / PRECO_BTC) : 0;
+
+            document.getElementById('taxa-estimada').innerText = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(taxa);
+            document.getElementById('resultado-btc').innerText = btcRecebido.toFixed(8) + ' BTC';
+        }
+
+        // 2. Botões de porcentagem rápida (25%, 50%, 100% do saldo)
+        function preencherPorcentagem(porcentagem) {
+            const valorCalculado = (SALDO_DISPONIVEL_BRL * porcentagem).toFixed(2);
+            document.getElementById('input-brl').value = valorCalculado;
+            calcularQtdeBtc(valorCalculado);
+        }
+
+        // 3. Alterna entre o modo Comprar e Vender
+        function mudarModoTrade(modo) {
+            modoAtual = modo;
+            const btnComprar = document.getElementById('btn-modo-comprar');
+            const btnVender = document.getElementById('btn-modo-vender');
+            const btnSubmit = document.getElementById('btn-submit-trade');
+
+            if (modo === 'comprar') {
+                btnComprar.className = "flex-1 py-2.5 text-xs font-extrabold rounded-lg transition-all text-black bg-neon shadow-md";
+                btnVender.className = "flex-1 py-2.5 text-xs font-extrabold rounded-lg transition-all text-gray-400 hover:text-white";
+                
+                btnSubmit.className = "w-full bg-neon hover:bg-emerald-400 text-black font-extrabold py-3.5 rounded-xl transition-all shadow-lg shadow-neon/10 active:scale-[0.99] flex justify-center items-center gap-2 text-sm uppercase tracking-wider";
+                btnSubmit.innerHTML = `<i data-lucide="shopping-cart" class="w-4 h-4"></i> Confirmar Compra de BTC`;
+            } else {
+                btnVender.className = "flex-1 py-2.5 text-xs font-extrabold rounded-lg transition-all text-white bg-rose-600 shadow-md";
+                btnComprar.className = "flex-1 py-2.5 text-xs font-extrabold rounded-lg transition-all text-gray-400 hover:text-white";
+
+                btnSubmit.className = "w-full bg-rose-600 hover:bg-rose-500 text-white font-extrabold py-3.5 rounded-xl transition-all shadow-lg active:scale-[0.99] flex justify-center items-center gap-2 text-sm uppercase tracking-wider";
+                btnSubmit.innerHTML = `<i data-lucide="arrow-down-left" class="w-4 h-4"></i> Confirmar Venda de BTC`;
+            }
+            lucide.createIcons();
+        }
+
+        // 4. Executa a ordem (Simulação)
+        function executarOrdem(e) {
+            e.preventDefault();
+            const valor = document.getElementById('input-brl').value;
+            const btc = document.getElementById('resultado-btc').innerText;
+
+            alert(`Ordem de ${modoAtual.toUpperCase()} executada com sucesso!\n\nValor: R$ ${valor}\nQuantidade: ${btc}`);
+        }
+    </script>
+</body>
+</html> 
