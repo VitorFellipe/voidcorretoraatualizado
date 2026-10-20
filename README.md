@@ -1,0 +1,1 @@
+Testando, Aplicando, Estudando e aprendendo código, voltado para o aprendizado, não envolve valores reais é apenas um PROJETO feito em uma boa linguagem PHP em um excelente BANCO DE DADOS o MY SQL apenas estudos, codigos e nada mais!
