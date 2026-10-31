@@ -1,3 +1,8 @@
+Aluno: Vitor Fellipe.
+Série: 3C Sistemas 
+Número: 39
+
+
 Testando, Aplicando, Estudando e aprendendo código, voltado para o aprendizado, não envolve valores reais é apenas um PROJETO feito em uma boa linguagem PHP em um excelente BANCO DE DADOS o MY SQL apenas estudos, codigos e nada mais!
 
 endpoint: /corretora.php
@@ -80,4 +85,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     O QUE FAZ?
     UTILIZA METODO DE POST PARA CRIAR, CRIAR UMA CONTA DE USUARIO, AI PARA CRIAR ELE JA DA AS VARIAVEIS DO PHP DE SENHA, SALDO PARA CADA USUARIO E ENVIA PARA 
- 
+
+
+ esse são exemplos de método GET e POST do meu projeto, e temos a parte do DELETE.
+
+ DELETE:
+<?php
+session_start();
+
+if(!isset($_SESSION['usuario_id'])){
+    header("Location: teladelogin.html");
+    exit();
+}   
+
+require_once 'conexao.php';
+
+$usuario_id = $_SESSION['usuario_id'];
+
+$sql = "DELETE FROM usuarios WHERE id = ?";
+$stmt = $conn->prepare($sql);
+
+if ($stmt) {
+    $stmt->bind_param("i", $usuario_id);
+    $stmt->execute();
+    $stmt->close();
+
+}
+session_unset();
+session_destroy();
+
+header("Location: teladelogin.html?msg=conta_excluida");
+exit();
+?> 
+
+
+ELE DESTROI A SESSÂO e EXCLUI A CONTA DO USUARIO!
+session_destroy();
+
+O UPDATE eu não consegui fazer, não usei administrei bem o tempo e não consegui fazer.
+
+
